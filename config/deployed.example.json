@@ -1,0 +1,13 @@
+{
+  "reactive": "",
+  "reactiveFixture": {"pool0":"","pool1":"","executor":"","token0":"","token1":""},
+  "keeperFixture": {"pool0":"","pool1":"","executor":"","token0":"","token1":""},
+  "samplesPerMode": 200,
+  "observerPollMs": 250,
+  "keeperPollMs": 2000,
+  "timeoutMs": 180000,
+  "amountWei": "1000000000000000000000",
+  "minProfitWei": "1000000000000000000",
+  "dislocationBps": 500,
+  "ttlSeconds": 120
+}

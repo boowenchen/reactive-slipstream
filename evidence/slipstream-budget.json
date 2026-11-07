@@ -1,0 +1,20 @@
+{
+  "pilotPerMode": 3,
+  "additionalPerMode": 136,
+  "totalPerMode": 139,
+  "maxPilotRoundCostWei": "39326300000000000",
+  "pilotCostsWei": [
+    "39326300000000000",
+    "39323300000000000",
+    "39326300000000000"
+  ],
+  "walletBeforeWei": "5343981999997439820",
+  "contractBeforeWei": "549466800000000000",
+  "heartbeatReservedWei": "500000000000000000",
+  "operationsBudgetWei": "20000000000000000",
+  "topupWei": "4823981999997439820",
+  "faucetBaseETH": "0.03",
+  "faucetLREACT": "3",
+  "formula": "additional=min(197,floor((wallet+reactiveBalance-0.5-0.02)/max(pilotRoundDebit)))",
+  "topupTx": "0xd5de6647115c99465f7e3ae4eaabcab51d5517a287ee4204f27a823b6f43e85b"
+}

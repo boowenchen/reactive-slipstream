@@ -1,0 +1,141 @@
+Compiling 1 files with Solc 0.8.30
+Solc 0.8.30 finished in 3.44s
+Compiler run successful!
+warning[reentrancy-no-eth]: external call can be reentered before `reserve0` is updated
+   ╭▸ slipstream/src/Pool.sol:31:13
+   │
+31 │             token0.transferFrom(msg.sender, address(this), a) && token1.transferFrom(msg.sender, address(this), b),
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[reentrancy-no-eth]: external call can be reentered before `reserve0` is updated
+   ╭▸ slipstream/src/Pool.sol:31:66
+   │
+31 │             token0.transferFrom(msg.sender, address(this), a) && token1.transferFrom(msg.sender, address(this), b),
+   │                                                                  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ slipstream/src/Pool.sol:67:9
+   │
+67 │         emit Sync(stimulus, msg.sender, sequence, reserve0, reserve1);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[reentrancy-no-eth]: external call can be reentered before `reserve0` is updated
+   ╭▸ slipstream/src/Pool.sol:55:17
+   │
+55 │         require(input.transferFrom(msg.sender, address(this), amount) && output.transfer(msg.sender, out), "transfer");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[reentrancy-no-eth]: external call can be reentered before `reserve0` is updated
+   ╭▸ slipstream/src/Pool.sol:55:74
+   │
+55 │         require(input.transferFrom(msg.sender, address(this), amount) && output.transfer(msg.sender, out), "transfer");
+   │                                                                          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-no-eth
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ slipstream/src/Pool.sol:50:17
+   │
+50 │         require(block.timestamp <= deadline && amount > 0, "expired/zero");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ slipstream/src/Pool.sol:57:9
+   │
+57 │         emit Swap(stimulus, msg.sender, zeroForOne, amount, out);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ slipstream/src/Executor.sol:71:28
+   │
+71 │         require(!paused && block.timestamp <= deadline, "paused/expired");
+   │                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/block-timestamp
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+   ╭▸ slipstream/src/Executor.sol:83:9
+   │
+83 │         emit Completed(id, amount, out, out - amount);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ slipstream/src/SlipstreamReactive.sol:81:20
+   │
+81 │             if (e) SYSTEM.subscribe(originChain, p, SYNC, REACTIVE_IGNORE, REACTIVE_IGNORE, REACTIVE_IGNORE);
+   │                    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ slipstream/src/SlipstreamReactive.sol:82:18
+   │
+82 │             else SYSTEM.unsubscribe(originChain, p, SYNC, REACTIVE_IGNORE, REACTIVE_IGNORE, REACTIVE_IGNORE);
+   │                  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+
+warning[reentrancy-events]: event emitted after an external call; reentrancy can reorder or fabricate logs that off-chain consumers rely on
+    ╭▸ slipstream/src/SlipstreamReactive.sol:125:9
+    │
+125 │         emit Decision(id, bytes32(log.txHash), log.logIndex, bytes32(log.topic1), direction, mid, out);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://getfoundry.sh/forge/linting/reentrancy-events
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ slipstream/src/SlipstreamReactive.sol:96:47
+   │
+96 │         if (executor == address(0) || address(uint160(log.topic2)) == executor) return;
+   │                                               ━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint160' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ slipstream/src/Pool.sol:64:20
+   │
+64 │         reserve0 = uint112(a);
+   │                    ━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint112' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+
+warning[unsafe-typecast]: typecast can truncate values
+   ╭▸ slipstream/src/Pool.sol:65:20
+   │
+65 │         reserve1 = uint112(b);
+   │                    ━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'uint112' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://getfoundry.sh/forge/linting/unsafe-typecast
+

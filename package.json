@@ -1,0 +1,21 @@
+{
+  "name": "slipstream-benchmark",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test scripts/metrics.test.ts",
+    "measure": "tsx scripts/measure.ts",
+    "report": "tsx scripts/report.ts"
+  },
+  "dependencies": {
+    "viem": "2.57.16"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.10",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

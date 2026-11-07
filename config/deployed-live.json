@@ -1,0 +1,24 @@
+{
+  "env": {
+    "REACTIVE_FUND_WEI": "700000000000000000",
+    "CALLBACK_FUND_WEI": "1000000000000000",
+    "AMOUNT_WEI": "1000000000000000000000",
+    "MIN_PROFIT_WEI": "1000000000000000000",
+    "SPREAD_BPS": "50",
+    "SLIPPAGE_BPS": "100",
+    "TTL_SECONDS": "120",
+    "TOKEN0": "0xeaa82c47cd2d4a7b86fcf4034c277969bd60441e",
+    "TOKEN1": "0xa3294e7467357ce2c1f00d065f8eca0dd3593739",
+    "POOL0": "0xb1df4394c6f89eac075ce138e1a503c4c89f5bed",
+    "POOL1": "0x4870b5b9fbdd6b9f134905828cccf0cbead45b9b",
+    "REACTIVE": "0x7509221859d2984ed941f671b616c6a77d07c95b",
+    "EXECUTOR": "0xff70c3f9bce166fe0406d1cb74ed6c4b7fd292b6"
+  },
+  "stages": [
+    "pools-base",
+    "reactive-lasna",
+    "executor-base",
+    "link-lasna",
+    "seed-base"
+  ]
+}

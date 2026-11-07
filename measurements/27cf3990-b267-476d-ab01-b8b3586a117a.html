@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Slipstream latency report</title><style>body{background:#101c25;color:#ecf3f7;font:16px system-ui;max-width:1100px;margin:3rem auto;padding:1rem}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:1rem;border-bottom:1px solid #456}svg{width:100%;height:auto}pre{overflow:auto}a{color:#51e0b3}</style><h1>Slipstream · observed latency</h1><p>Run 06d6ceed-5869-446d-b3fe-e52bc712c2c4. Live testnet evidence; 6 attempts. Protocol: calibration / receipt-waiting forge. Green: Reactive. Orange: polling keeper.</p><table><tr><th>Mode</th><th>Completed / attempted</th><th>p50 ms</th><th>p95 ms</th><th>Incomplete</th></tr><tr><td>reactive</td><td>3/3</td><td>5351.8</td><td>5400.8</td><td>0</td></tr><tr><td>keeper</td><td>3/3</td><td>19842.5</td><td>95611.8</td><td>0</td></tr></table><svg role="img" aria-label="Per-sample origin receipt to completion observation latency" viewBox="0 0 500 280"><text x="40" y="20" fill="white">95612 ms maximum</text><rect x="40" y="238.13769663408556" width="52.5" height="11.862303365914437" fill="#51e0b3"><title>reactive #0: 5401 ms</title></rect><rect x="110" y="238.24541688409025" width="52.5" height="11.754583115909742" fill="#51e0b3"><title>reactive #1: 5352 ms</title></rect><rect x="180" y="239.19944296254198" width="52.5" height="10.800557037458029" fill="#51e0b3"><title>reactive #2: 4917 ms</title></rect><rect x="250" y="206.4183073943182" width="52.5" height="43.58169260568181" fill="#f8b869"><title>keeper #0: 19843 ms</title></rect><rect x="320" y="209.74639799723045" width="52.5" height="40.25360200276955" fill="#f8b869"><title>keeper #1: 18327 ms</title></rect><rect x="390" y="40" width="52.5" height="210" fill="#f8b869"><title>keeper #2: 95612 ms</title></rect><path d="M40 250H460" stroke="white"/></svg><p>Wall-clock observations include RPC polling and transport. The 500 ms observer loop uses viem clients with a 4000 ms block-number cache; near-zero observed deltas can mean both events were discovered in one cached poll, not subsecond protocol latency. Cross-chain block timestamps are not synchronized clocks. Base-to-Base timestamp deltas are separately recorded in JSON. Two independent fixtures, 3 planned samples per mode; no historical legacy-Reactive comparison is claimed. Fees and dislocation costs are excluded from the contract's token-profit number. Incomplete attempts are reported, not replaced.</p><details><summary>Stage distributions</summary><pre>{
+  &quot;reactive&quot;: {
+    &quot;attempts&quot;: 3,
+    &quot;successes&quot;: 3,
+    &quot;failures&quot;: 0,
+    &quot;observerOrderInversions&quot;: 0,
+    &quot;submissionToCompletionMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 17846.68896484375,
+      &quot;p95&quot;: 17917.84375
+    },
+    &quot;originToCompletionObservedMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 5351.796630859375,
+      &quot;p95&quot;: 5400.841064453125
+    },
+    &quot;originToReactiveObservedMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 2580.038330078125,
+      &quot;p95&quot;: 2635.78662109375
+    },
+    &quot;reactiveToCallbackObservedMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 2771.75830078125,
+      &quot;p95&quot;: 2863.414306640625
+    },
+    &quot;sameChainBlockDeltaSeconds&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 1,
+      &quot;p95&quot;: 2
+    }
+  },
+  &quot;keeper&quot;: {
+    &quot;attempts&quot;: 3,
+    &quot;successes&quot;: 3,
+    &quot;failures&quot;: 0,
+    &quot;observerOrderInversions&quot;: 0,
+    &quot;submissionToCompletionMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 32337.181396484375,
+      &quot;p95&quot;: 130174.30126953125
+    },
+    &quot;originToCompletionObservedMs&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 19842.50341796875,
+      &quot;p95&quot;: 95611.83764648438
+    },
+    &quot;originToReactiveObservedMs&quot;: {
+      &quot;n&quot;: 0,
+      &quot;p50&quot;: null,
+      &quot;p95&quot;: null
+    },
+    &quot;reactiveToCallbackObservedMs&quot;: {
+      &quot;n&quot;: 0,
+      &quot;p50&quot;: null,
+      &quot;p95&quot;: null
+    },
+    &quot;sameChainBlockDeltaSeconds&quot;: {
+      &quot;n&quot;: 3,
+      &quot;p50&quot;: 18,
+      &quot;p95&quot;: 88
+    }
+  }
+}</pre></details><p>Audit the companion JSON for all origin, reactive and callback transaction hashes and block hashes.</p></html>

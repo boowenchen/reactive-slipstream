@@ -1,0 +1,299 @@
+{
+  "runId": "06d6ceed-5869-446d-b3fe-e52bc712c2c4",
+  "kind": "live-testnet",
+  "config": {
+    "reactive": "0x7509221859d2984ed941f671b616c6a77d07c95b",
+    "reactiveFixture": {
+      "token0": "0xeaa82c47cd2d4a7b86fcf4034c277969bd60441e",
+      "token1": "0xa3294e7467357ce2c1f00d065f8eca0dd3593739",
+      "pool0": "0xb1df4394c6f89eac075ce138e1a503c4c89f5bed",
+      "pool1": "0x4870b5b9fbdd6b9f134905828cccf0cbead45b9b",
+      "executor": "0xff70c3f9bce166fe0406d1cb74ed6c4b7fd292b6"
+    },
+    "keeperFixture": {
+      "token0": "0x582aabdafc830f6540846bdaa925df4c79a3cf77",
+      "token1": "0xac9a51e4f86e01c2bf812a958b0242aea5afcc7c",
+      "pool0": "0x6c391e50784a5630860c5afd9194b72174843276",
+      "pool1": "0xa0c27683a0c44a11a78dc82bfbc8f87dc3dd4364",
+      "executor": "0xa039dd21f4a46b05b0e0b95152290a733e061a1d"
+    },
+    "samplesPerMode": 3,
+    "observerPollMs": 500,
+    "keeperPollMs": 2000,
+    "timeoutMs": 180000,
+    "amountWei": "1000000000000000000000",
+    "minProfitWei": "1000000000000000000",
+    "dislocationBps": 500,
+    "ttlSeconds": 120
+  },
+  "baseChainId": 84532,
+  "reactiveChainId": 5318007,
+  "startedAt": "2026-11-07T21:04:21.043Z",
+  "rows": [
+    {
+      "mode": "reactive",
+      "index": 0,
+      "stimulus": "0xbce0a827c2a2403c4aa7ec9b8ddcaf3b1b0d87f2771ff9f013e17e7486621e6f",
+      "status": "success",
+      "submittedAtMs": 1794085505318.711,
+      "payerBefore": {
+        "reactiveWei": "667442700000000000",
+        "callbackWei": "1000000000000000"
+      },
+      "originTx": "0x74aa40157d772c7a83681f433346418ea845249a3f3c6859158e7a9c5ba6a1ab",
+      "originObservedMs": 1794085517835.7136,
+      "originBlockHash": "0xe899fb4b87f841e072b19fa3b5b5eba27405672070b97312207802841256620e",
+      "originBlockTimestamp": 1794085517,
+      "decisionId": "0x863046a018d658d94b7d7f278acf28f9d8d48683a514c691c2a5e7fd3b608ee3",
+      "reactiveTx": "0xbfed731647e9e2d6ae5f051941c948b8e8ef651128600969c8287abbbea68415",
+      "reactiveObservedMs": 1794085520373.1404,
+      "reactiveBlockTimestamp": 1794085517,
+      "callbackTx": "0xe0b2877d81e7dd297effe78ee2f97dc13d01bb7e8355d525ede3eea5968fa057",
+      "callbackObservedMs": 1794085523236.5547,
+      "profitWei": "44219289084301612527",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0x2d9a5d5a6fcd5e7b528412a4565489446fa3da058bc9f5a798c4dc974663cb1a",
+      "callbackBlockTimestamp": 1794085519,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "628116400000000000",
+        "callbackWei": "998220171400000"
+      }
+    },
+    {
+      "mode": "reactive",
+      "index": 1,
+      "stimulus": "0xbd1c3edde90f4e2b10f942946d51e4c2e1c1bcb0f00f580e55aae7055252d42c",
+      "status": "success",
+      "submittedAtMs": 1794085527476.011,
+      "payerBefore": {
+        "reactiveWei": "628116400000000000",
+        "callbackWei": "998220171400000"
+      },
+      "originTx": "0xfe8ef82064c8702063661b48550e2033e74bcef232837533faf2d47871f7e9b8",
+      "originObservedMs": 1794085539970.9033,
+      "originBlockHash": "0x9c83ae73a34e1cc9ef56c41f5b2f472fe2713d10b0ecb9e223c4d3a7ca9c90d3",
+      "originBlockTimestamp": 1794085540,
+      "decisionId": "0xe5e19535c121687b755580425d0ba624d98b98c5d568164868a355419fb810f6",
+      "reactiveTx": "0x84e5d823436422d3aac1119c2c54fa984aced781acb3c28ff292013b54913d3a",
+      "reactiveObservedMs": 1794085542550.9417,
+      "reactiveBlockTimestamp": 1794085539,
+      "callbackTx": "0x71aeea8eeba98a44135fbc1cbc63fe68287c8f743a8be06c933ae96b4eb2fb42",
+      "callbackObservedMs": 1794085545322.7,
+      "profitWei": "41560547653618034288",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0x2482638d88248d8986aa41d3c9b8489788aedd9656edf9a3bb85182eac3314c2",
+      "callbackBlockTimestamp": 1794085541,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "588793100000000000",
+        "callbackWei": "996440501200000"
+      }
+    },
+    {
+      "mode": "reactive",
+      "index": 2,
+      "stimulus": "0xcbdf989d65981b70b20ccd60ae61887c3adc3790656f6647ad87b8bfcd01fa12",
+      "status": "success",
+      "submittedAtMs": 1794085549524.4316,
+      "payerBefore": {
+        "reactiveWei": "588793100000000000",
+        "callbackWei": "996440501200000"
+      },
+      "originTx": "0xe825fb455047c12901fdb623e6841aff53cef1766fc6e52163928584943c41d3",
+      "originObservedMs": 1794085562053.4072,
+      "originBlockHash": "0xe2e171da5d1a3680b221a59d0dd20f1958f5db9caec5e989b601a025fbe9e8db",
+      "originBlockTimestamp": 1794085562,
+      "decisionId": "0xd49c1ba8760fcd6c1070a36a7c751fc869fc52fbe42889f289329326a1d5aa1a",
+      "reactiveTx": "0x5f1e2b6bb89166c199342f86f848578bfb689fe7311b9091a0fdc8a9308be5fa",
+      "reactiveObservedMs": 1794085564689.1938,
+      "reactiveBlockTimestamp": 1794085561,
+      "callbackTx": "0x4f393b714751f6c24d246b3ff1ad04f84d76d0db23cae6536f15584ec1d50013",
+      "callbackObservedMs": 1794085566970.841,
+      "profitWei": "44219351375334924530",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0x329bad53edabd4b89e615824995e7438dff0a668d0670358f16ed25b06a3b3a4",
+      "callbackBlockTimestamp": 1794085563,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "994660672600000"
+      }
+    },
+    {
+      "mode": "keeper",
+      "index": 0,
+      "stimulus": "0x71f9682d13c42f51cf382b0d8be3ad8525ac5b49361789c347a19eabaec6adb9",
+      "status": "success",
+      "submittedAtMs": 1794085570386.045,
+      "decisionId": "0x71f9682d13c42f51cf382b0d8be3ad8525ac5b49361789c347a19eabaec6adb9",
+      "payerBefore": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      },
+      "originTx": "0x3c7a465e6cca722a9f0f5ef5a9e12618f5bc4431ff36506d5d7bc66258669e81",
+      "originObservedMs": 1794085582880.723,
+      "originBlockHash": "0x6071bca5dc9abe808aa4101d80e91e3285efb18fe7f165f512c121b909c2074a",
+      "originBlockTimestamp": 1794085583,
+      "keeperInitialPhaseMs": 1484.6877858654652,
+      "callbackTx": "0x470e4af790099992015bf3b272c08336e5ab8d611ef5dc6914027766af4b3ed1",
+      "callbackObservedMs": 1794085602723.2263,
+      "profitWei": "44219289084301612527",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0x7141e4193deb931849e7d92de1721cb5919b785c1ef467175b4428bbf82d197d",
+      "callbackBlockTimestamp": 1794085601,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      }
+    },
+    {
+      "mode": "keeper",
+      "index": 1,
+      "stimulus": "0x0a7adf8c2a1adb50bd78967d244be4eea94c3c694820d6073ef250b3fdcacf31",
+      "status": "success",
+      "submittedAtMs": 1794085606427.0764,
+      "decisionId": "0x0a7adf8c2a1adb50bd78967d244be4eea94c3c694820d6073ef250b3fdcacf31",
+      "payerBefore": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      },
+      "originTx": "0xb3e1d56751dc672aadba3e47723e172553aebd04a32af25e4349b180577ebe4d",
+      "originObservedMs": 1794085618782.256,
+      "originBlockHash": "0x3addd5bc2f14fad9c278849e156a80d9004fe3ae03f3991af7286dcfbe01e9a7",
+      "originBlockTimestamp": 1794085618,
+      "keeperInitialPhaseMs": 1620.565446512147,
+      "callbackTx": "0xabe576108cb9b67c8f7744c4dd6d482ae7342e60e52b3e98f9df5a28bd29ea89",
+      "callbackObservedMs": 1794085637109.4983,
+      "profitWei": "41560547653618034288",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0x386b41e61716050fbadb8b2ab3013006260d9cf38b8822ede473616149125bbd",
+      "callbackBlockTimestamp": 1794085636,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      }
+    },
+    {
+      "mode": "keeper",
+      "index": 2,
+      "stimulus": "0xc68ade6073991d513b1147c4eaf1901e2523fd9f24d8d27b3d9e8d8ce11a6ce3",
+      "status": "success",
+      "submittedAtMs": 1794085640786.781,
+      "decisionId": "0xc68ade6073991d513b1147c4eaf1901e2523fd9f24d8d27b3d9e8d8ce11a6ce3",
+      "payerBefore": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      },
+      "originTx": "0x49ebc8a03253ec8d933652d22f26888e1b7d550e4eb04e2cf67b814a5dbb2e4a",
+      "originObservedMs": 1794085675349.2446,
+      "originBlockHash": "0x8845f14eb1eaaf354e2f48fa85cf83241ca90aa1154d8e4cc7cd9c6d7ae38a3d",
+      "originBlockTimestamp": 1794085671,
+      "keeperInitialPhaseMs": 1308.720550385498,
+      "callbackTx": "0x311dc50771d7b65e5cc50bedb608a167eb660762b7133427760bc85947883149",
+      "callbackObservedMs": 1794085770961.0823,
+      "profitWei": "44219351375334924530",
+      "observerOrderInverted": false,
+      "callbackBlockHash": "0xc2f1a4c8e3e59de5d5484e55b3d6c3a95ef15888309e9e933681c5f1feceef2d",
+      "callbackBlockTimestamp": 1794085759,
+      "completedState": true,
+      "payerAfter": {
+        "reactiveWei": "549466800000000000",
+        "callbackWei": "0"
+      }
+    }
+  ],
+  "setupTransactions": [
+    {
+      "kind": "approval",
+      "hash": "0xdec791c9a4163afaa4aa2159440dd2e63af0c1582ea973197004b087e34bcda0",
+      "token": "0xeaa82c47cd2d4a7b86fcf4034c277969bd60441e",
+      "spender": "0xb1df4394c6f89eac075ce138e1a503c4c89f5bed"
+    },
+    {
+      "kind": "approval",
+      "hash": "0x895fe01b75edf66f125d824d2173f7bda9f0039a38c4795b6094efae4d7d7e8e",
+      "token": "0xa3294e7467357ce2c1f00d065f8eca0dd3593739",
+      "spender": "0xb1df4394c6f89eac075ce138e1a503c4c89f5bed"
+    },
+    {
+      "kind": "approval",
+      "hash": "0x1b8cc5bdee4eadd694391f074d7c54279b95c98f50fd2284162a2b5b5e06e2e7",
+      "token": "0x582aabdafc830f6540846bdaa925df4c79a3cf77",
+      "spender": "0x6c391e50784a5630860c5afd9194b72174843276"
+    },
+    {
+      "kind": "approval",
+      "hash": "0x9489b116013e9a01aaddbea5f17fe50a6c36c147e70c3ef8b6b140f2e5e7353b",
+      "token": "0xac9a51e4f86e01c2bf812a958b0242aea5afcc7c",
+      "spender": "0x6c391e50784a5630860c5afd9194b72174843276"
+    }
+  ],
+  "finishedAt": "2026-11-07T21:09:55.049Z",
+  "summary": {
+    "reactive": {
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "observerOrderInversions": 0,
+      "submissionToCompletionMs": {
+        "n": 3,
+        "p50": 17846.68896484375,
+        "p95": 17917.84375
+      },
+      "originToCompletionObservedMs": {
+        "n": 3,
+        "p50": 5351.796630859375,
+        "p95": 5400.841064453125
+      },
+      "originToReactiveObservedMs": {
+        "n": 3,
+        "p50": 2580.038330078125,
+        "p95": 2635.78662109375
+      },
+      "reactiveToCallbackObservedMs": {
+        "n": 3,
+        "p50": 2771.75830078125,
+        "p95": 2863.414306640625
+      },
+      "sameChainBlockDeltaSeconds": {
+        "n": 3,
+        "p50": 1,
+        "p95": 2
+      }
+    },
+    "keeper": {
+      "attempts": 3,
+      "successes": 3,
+      "failures": 0,
+      "observerOrderInversions": 0,
+      "submissionToCompletionMs": {
+        "n": 3,
+        "p50": 32337.181396484375,
+        "p95": 130174.30126953125
+      },
+      "originToCompletionObservedMs": {
+        "n": 3,
+        "p50": 19842.50341796875,
+        "p95": 95611.83764648438
+      },
+      "originToReactiveObservedMs": {
+        "n": 0,
+        "p50": null,
+        "p95": null
+      },
+      "reactiveToCallbackObservedMs": {
+        "n": 0,
+        "p50": null,
+        "p95": null
+      },
+      "sameChainBlockDeltaSeconds": {
+        "n": 3,
+        "p50": 18,
+        "p95": 88
+      }
+    }
+  }
+}

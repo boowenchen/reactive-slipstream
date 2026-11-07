@@ -1,0 +1,17 @@
+{
+  "env": {
+    "AMOUNT_WEI": "1000000000000000000000",
+    "MIN_PROFIT_WEI": "1000000000000000000",
+    "SLIPPAGE_BPS": "100",
+    "TOKEN0": "0x582aabdafc830f6540846bdaa925df4c79a3cf77",
+    "TOKEN1": "0xac9a51e4f86e01c2bf812a958b0242aea5afcc7c",
+    "POOL0": "0x6c391e50784a5630860c5afd9194b72174843276",
+    "POOL1": "0xa0c27683a0c44a11a78dc82bfbc8f87dc3dd4364",
+    "EXECUTOR": "0xa039dd21f4a46b05b0e0b95152290a733e061a1d"
+  },
+  "stages": [
+    "pools",
+    "keeper",
+    "seed"
+  ]
+}

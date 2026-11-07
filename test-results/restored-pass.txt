@@ -1,0 +1,37 @@
+Compiling 2 files with Solc 0.8.30
+Solc 0.8.30 finished in 1.12s
+Compiler run successful!
+
+Ran 7 tests for test/Slipstream.t.sol:SlipstreamTest
+[PASS] testCapPauseDeadlineAndProfitGuards() (gas: 292274)
+[PASS] testFuzzPoolConservesK(bool,uint96) (runs: 256, μ: 103443, ~: 103502)
+[PASS] testProfitableAtomicTradeAndReplayNoop() (gas: 347629)
+[PASS] testReactiveDetectsDedupsAndIgnoresFeedback() (gas: 809151)
+[PASS] testRecordedCallbackPayloadExecutesThroughProxy() (gas: 721172)
+[PASS] testStaleQuoteRevertsAtomically() (gas: 294137)
+[PASS] testWrongProxyAndIdRejected() (gas: 85627)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 14.21ms (18.24ms CPU time)
+
+Ran 1 test for test/Slipstream.t.sol:PoolInvariantTest
+[PASS] invariant_FeesNeverDecreaseKAndReservesMatchBalances() (runs: 128, calls: 8192, reverts: 0)
+
+╭-------------+----------+-------+---------+----------╮
+| Contract    | Selector | Calls | Reverts | Discards |
++=====================================================+
+| PoolHandler | trade    | 8192  | 0       | 0        |
+╰-------------+----------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.19s (1.19s CPU time)
+
+Ran 1 test for test/Slipstream.t.sol:ExecutorInvariantTest
+[PASS] invariant_ExecutorInventoryNeverFalls() (runs: 128, calls: 8192, reverts: 0)
+
+╭-----------------+-------------------+-------+---------+----------╮
+| Contract        | Selector          | Calls | Reverts | Discards |
++==================================================================+
+| ExecutorHandler | perturbAndExecute | 8192  | 0       | 0        |
+╰-----------------+-------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.18s (2.18s CPU time)
+
+Ran 3 test suites in 2.18s (3.38s CPU time): 9 tests passed, 0 failed, 0 skipped (9 total tests)
