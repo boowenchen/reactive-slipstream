@@ -1,6 +1,6 @@
 # Slipstream
 
-**An event-driven two-pool arbitrage prototype with a reproducible latency bench.**
+**An event-driven two-pool arbitrage prototype with a published latency bench.**
 Two fixed-liquidity test-token AMMs on Base Sepolia feed a Lasna reactive contract.
 When cached reserves show sufficient spread and quoted profit, it requests an atomic
 two-swap callback. Moving token0 through the higher-price pool and back through the
@@ -82,6 +82,16 @@ All three calibration Reactive loops emitted Completed and returned completed(id
 
 Budget permits **139 trials per mode**: 3 calibration + 136 formal, rather than 200 + 200. The 3 calibration Reactive round costs were 0.0393263, 0.0393233, 0.0393263 lREACT, including the decision and both callback-induced Sync updates. The authorized 0.03 Base Sepolia ETH faucet request delivered 3 lREACT. We reserved 0.5 lREACT for Heartbeat and 0.02 lREACT for funding/shutdown gas. The additional count is the largest integer satisfying `floor((wallet + current Reactive balance - 0.5 - 0.02) / max(calibration round cost))`, capped at the remaining target. Heartbeat contract residual is not spendable by Slipstream. See [budget inputs](evidence/slipstream-budget.json) and [per-execution fee traces](evidence/slipstream-cost-calibration.json).
 
+**Primary metric — Base block timestamps, origin transaction → callback transaction (formal run, 136 per mode):**
+Reactive p50 **2 s** / p95 **2 s**; keeper p50 **8 s** / p95 **9 s**. From stimulus submission to observed completion:
+Reactive 7,233 / 7,389 ms; keeper 14,131 / 15,278 ms (p50 / p95).
+
+**Observer intervals are compressed — do not read them as protocol latency.** In 130 of 136 formal Reactive rows the
+observer saw the callback before it saw the Reactive transaction (`observerOrderInverted=true` in the JSON), and 104 of 136
+observed intervals are below one second although every Base block delta is 1–3 s. The observer columns below are kept
+for completeness. Two further limits of this comparison: the keeper starts its random polling phase only after the harness
+observes the origin receipt, and all Reactive trials ran before all keeper trials (not interleaved).
+
 | Dataset | Mode | Successful / attempted | p50 observed ms | p95 observed ms | Same-chain block p50 / p95 s |
 |---|---|---|---:|---:|---|
 | calibration | reactive | 3/3 | 5351.8 | 5400.8 | 1 / 2 |
@@ -93,7 +103,7 @@ Formal run complete. Calibration used a receipt-waiting broadcaster and its timi
 
 [Calibration JSON](measurements/27cf3990-b267-476d-ab01-b8b3586a117a.json) · [calibration chart](measurements/27cf3990-b267-476d-ab01-b8b3586a117a.html) · [formal JSON](measurements/8ef50d60-a2a2-40dd-a66e-0408c426059a.json) · [formal chart](measurements/8ef50d60-a2a2-40dd-a66e-0408c426059a.html).
 
-The static HTML reports use real rows only. Browser visual preview could not run because the browser access host was unavailable. This workspace measurement uses `../tools/live.py` and `../heartbeat/script/Sign.s.sol` as an external signer; those helpers must accompany a standalone copy or be replaced with an equivalent secure signer.
+The static HTML reports use real rows only; the formal chart was opened and visually checked in a browser on 2026-11-08. The chart plots the observer interval, not the primary metric below. This workspace measurement uses `../tools/live.py` and `../heartbeat/script/Sign.s.sol` as an external signer; those helpers must accompany a standalone copy or be replaced with an equivalent secure signer.
 
 ## Build and verification
 

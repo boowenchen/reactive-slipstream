@@ -1,17 +1,13 @@
-# Slipstream — storyboard (2:50 maximum)
+# Slipstream — demo video script (as recorded, 2:02)
 
-Record after the live 200+200 benchmark. No fabricated chart or speed claim. Show
-the actual JSON filename, sample counts, timeout count and configured poll interval.
+Narration is English text-to-speech with burned-in captions. Every on-chain shot is a live explorer page (Blockscout / Reactscan) for a real testnet transaction listed in README.md; cards are rendered from the repository's own evidence and test output. No simulated activity is shown as a transaction.
 
-| Time | Shot | English narration |
+| Time | Shot | Narration |
 |---|---|---|
-| 0:00–0:20 | Two-pool price diagram | “Two pools, one token pair, different prices. Slipstream turns reserve events into guarded trades through Reactive Omni.” |
-| 0:20–0:45 | Dislocation swap and pool Sync receipt | “A real test-token swap creates the price difference on Base Sepolia. Both pools emit sequence-numbered reserve updates.” |
-| 0:45–1:10 | Lasna Decision receipt; highlight origin hash and decision ID | “The Lasna contract checks the spread and quotes a round trip. Its decision carries the source transaction and log index, so we can follow this exact opportunity.” |
-| 1:10–1:40 | Callback Completed receipt and token balances | “The destination verifies the proxy and reactive sender. It executes two swaps atomically, with an input cap, deadline, slippage bounds and minimum token profit. Stale quotes revert.” |
-| 1:40–2:15 | Real chart, JSON rows, both sample counts | “We ran two independent fixtures: two hundred Reactive opportunities and two hundred using a polling keeper that actually sends transactions. Here are the measured median and ninety-fifth percentile results, including the failure counts.” |
-| 2:15–2:35 | Expand stage distributions and show matching three receipts | “These are observer timings, including RPC polling. Cross-chain block clocks are not a precision stopwatch. Every successful sample links back to its transaction evidence.” |
-| 2:35–2:50 | Mutation failure/restored pass and pause control | “The test suite catches deliberately broken safety properties. This prototype measures a mechanism; it does not claim mainnet profitability.” |
-
-Narration: about 230 words. Read actual measured values only if available. Otherwise
-replace the benchmark scene with the unexecuted runbook and state that measurement is pending.
+| 0:00–0:13 | Slipstream · architecture | “Two pools, one token pair, different prices. Slipstream turns pool reserve events into guarded, atomic trades through Reactive Network, and measures how quickly that happens against a polling keeper.” |
+| 0:13–0:23 | Base Sepolia · dislocation swap — origin (calibration loop 1) | “A real test-token swap on Base Sepolia pushes one pool's price out of line. The pool emits a reserve update with a sequence number.” |
+| 0:23–0:38 | Lasna · Reactive decision and callback request (loop 1) | “The Reactive contract on Lasna caches both pools' reserves, checks the spread, and quotes a round trip. Its decision is keyed by the source transaction and log index, so every opportunity can be traced end to end.” |
+| 0:38–0:56 | Base Sepolia · callback executes the two-swap round trip (loop 1) | “On Base, the executor accepts only the callback proxy and this exact Reactive contract. It runs both swaps atomically, with an input cap, a deadline, slippage bounds and a minimum profit. If the quote no longer meets those guards, the whole trade reverts.” |
+| 0:56–1:27 | Formal run · 136 + 136 real trials | “For the benchmark, we ran two independent fixtures: one hundred thirty-six formal opportunities handled through Reactive, and one hundred thirty-six handled by a polling keeper that sends real transactions. All of them completed. Measured by Base block timestamps, from the origin transaction to the callback, Reactive took a median of two seconds, versus eight seconds for this keeper. From submitting the swap to seeing the trade complete, it was about seven seconds versus fourteen.” |
+| 1:27–1:48 | Transaction ledger · every attempted trial | “We lead with block timestamps because our RPC observer compresses short intervals: in one hundred thirty of the Reactive samples, it saw the callback before the Reactive transaction. The keeper is a simple baseline, not the fastest possible one. Every sample links back to its transactions in the published ledger.” |
+| 1:48–2:02 | Local tests and a deliberate mutation | “The test suite catches deliberately broken safety properties: flip the pool fee in the wrong direction, and the invariant fails. Slipstream measures a mechanism on testnet. It does not claim mainnet profitability.” |
