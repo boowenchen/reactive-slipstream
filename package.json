@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx --test scripts/metrics.test.ts",
     "measure": "tsx scripts/measure.ts",
-    "report": "tsx scripts/report.ts"
+    "report": "tsx scripts/report.ts",
+    "reject-demo": "tsx scripts/reject-demo.ts"
   },
   "dependencies": {
     "viem": "2.57.16"

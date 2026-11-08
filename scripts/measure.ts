@@ -1,8 +1,5 @@
-import {createPublicClient,createWalletClient,serializeTransaction,defineChain,http,parseAbi,parseAbiItem,isAddress,keccak256,toHex,type Address,type Hash} from 'viem';
-import {toAccount} from 'viem/accounts';
-import {execFile} from 'node:child_process';
-import {promisify} from 'node:util';
-const execFileAsync=promisify(execFile);
+import {createPublicClient,createWalletClient,defineChain,http,parseAbi,parseAbiItem,isAddress,keccak256,toHex,type Address,type Hash} from 'viem';
+import {toAccount,privateKeyToAccount} from 'viem/accounts';
 import {readFileSync,writeFileSync,renameSync,mkdirSync,existsSync} from 'node:fs';
 import {performance} from 'node:perf_hooks';
 import {randomUUID} from 'node:crypto';
@@ -10,7 +7,7 @@ import {stats,dislocationInput,type Row} from './metrics.js';
 
 // No network or key access without the explicit transaction flag.
 if(!process.argv.includes('--execute-testnet')) {
-  console.log('Testnet execution: npm run measure -- --execute-testnet [--resume FILE]. Requires config/deployed.json and the local offline forge signer helper. Sends the configured 1–200 dislocations per mode plus keeper trades. This help command does not transact.');
+  console.log('Testnet execution: npm run measure -- --execute-testnet [--resume FILE]. Requires config/deployed.json and PRIVATE_KEY (testnet key that owns both executors). Sends the configured 1–200 dislocations per mode plus keeper trades. This help command does not transact.');
   process.exit(0);
 }
 const networks=JSON.parse(readFileSync('config/networks.json','utf8'));
@@ -24,15 +21,17 @@ for(const name of ['reactiveFixture','keeperFixture'])for(const key of ['pool0',
 if(!isAddress(cfg.reactive)||cfg.reactiveFixture.pool0===cfg.keeperFixture.pool0||cfg.reactiveFixture.executor===cfg.keeperFixture.executor)throw Error('Distinct fixtures and reactive address required');
 for(const k of ['samplesPerMode','observerPollMs','keeperPollMs','timeoutMs','dislocationBps','ttlSeconds'])if(!Number.isSafeInteger(cfg[k])||cfg[k]<=0)throw Error(`Invalid ${k}`);
 if((cfg.samplesPerMode<1||cfg.samplesPerMode>200)||cfg.observerPollMs<100||cfg.keeperPollMs<100||cfg.dislocationBps>1000||cfg.ttlSeconds>3600)throw Error('Invalid measurement bounds');
+// Signs locally with viem from PRIVATE_KEY (a testnet-only key). Anything but Base Sepolia is refused
+// before signing; the key never leaves this process and is never logged.
+const key=process.env.PRIVATE_KEY;
+if(!key||!/^0x[0-9a-fA-F]{64}$/.test(key))throw Error('Set PRIVATE_KEY to the 0x-prefixed testnet key that owns both executors');
+const local=privateKeyToAccount(key as Hash);
 const account=toAccount({
-  address:'0xa49e54E36f6B8130d0DF4105f3e594E2c80bBB86',
+  address:local.address,
   signMessage:async()=>{throw Error('disabled');},signTypedData:async()=>{throw Error('disabled');},
   signTransaction:async (transaction)=>{
     if(transaction.chainId!==84532)throw Error('Base Sepolia only');
-    const unsigned=serializeTransaction(transaction);
-    const {stdout}=await execFileAsync('python',['-X','utf8','../tools/live.py','sign-base',unsigned]);
-    const signature=JSON.parse(stdout);signature.v=BigInt(signature.v);
-    return serializeTransaction(transaction,signature);
+    return local.signTransaction(transaction);
   }
 });
 const base=defineChain({id:networks.base.chainId,name:'Base Sepolia',nativeCurrency:{name:'Ether',symbol:'ETH',decimals:18},rpcUrls:{default:{http:[networks.base.rpc]}}});
@@ -67,7 +66,7 @@ if(await reactive.readContract({address:cfg.reactive,abi:rcAbi,functionName:'amo
 const resumeIndex=process.argv.indexOf('--resume');
 const file=resumeIndex>=0?process.argv[resumeIndex+1]:`measurements/${randomUUID()}.json`;
 if(!file||!/^measurements\/[a-zA-Z0-9-]+\.json$/.test(file))throw Error('Output must be measurements/<run-id>.json');
-const run=resumeIndex>=0?JSON.parse(readFileSync(file,'utf8')):{runId:randomUUID(),kind:'live-testnet',observerVersion:'concurrent-offline-forge-v3',config:cfg,baseChainId:base.id,reactiveChainId:lasna.id,startedAt:new Date().toISOString(),rows:[] as Row[]};
+const run=resumeIndex>=0?JSON.parse(readFileSync(file,'utf8')):{runId:randomUUID(),kind:'live-testnet',observerVersion:'concurrent-viem-local-v4',config:cfg,baseChainId:base.id,reactiveChainId:lasna.id,startedAt:new Date().toISOString(),rows:[] as Row[]};
 if(run.kind!=='live-testnet'||JSON.stringify(run.config)!==JSON.stringify(cfg))throw Error('Resume configuration mismatch');
 const rows:Row[]=run.rows;
 if(resumeIndex<0&&existsSync(file))throw Error('Refusing overwrite');

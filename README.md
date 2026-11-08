@@ -64,6 +64,19 @@ npm run measure # help only; no transaction
 
 All three calibration Reactive loops emitted Completed and returned completed(id)=true. [Full transaction ledger](measurements/TRANSACTIONS.md) lists every attempted trial, including keeper executions; [machine evidence](config/evidence.json) retains all hashes and state checks.
 
+### Rejected stale quote — live
+
+The executor guards are exercised on-chain, not only in Foundry. [`scripts/reject-demo.ts`](scripts/reject-demo.ts) sends a dislocation swap and, right behind it, a second swap that pushes pool0 30 bp past pool1 in the other direction (below fees, so it opens no new trade). The Reactive decision is computed from the first state; by the time its callback lands, the quoted trade would lose money.
+
+| Step | Transaction |
+|---|---|
+| Dislocation swap (Base block 56138550) | [0xf0e132b0f4e562188ff656e40595bd8aa939f2a95ae87c26aeaa2ac58c2750f6](https://sepolia.basescan.org/tx/0xf0e132b0f4e562188ff656e40595bd8aa939f2a95ae87c26aeaa2ac58c2750f6) |
+| Closing swap (block 56138555) | [0x61ae10268728d64d835c1e3044da7314db5bb0b237ce4cce4722600953a96d1b](https://sepolia.basescan.org/tx/0x61ae10268728d64d835c1e3044da7314db5bb0b237ce4cce4722600953a96d1b) |
+| Lasna decision for the dislocation | [0xfd311aa0d5456c17f1b5147cae2cfb07b93231d2c5a1236d1174a8a49c3fa5d5](https://lasna.reactscan.net/tx/0xfd311aa0d5456c17f1b5147cae2cfb07b93231d2c5a1236d1174a8a49c3fa5d5) |
+| Callback delivery (block 56138560) | [0xce5419f6d977b0aa2b4208ac588cf5daa90b606909ba873dc7606edf9b6ff7cf](https://sepolia.basescan.org/tx/0xce5419f6d977b0aa2b4208ac588cf5daa90b606909ba873dc7606edf9b6ff7cf) |
+
+The executor reverted inside the delivery; the callback proxy recorded `CallbackFailure(executor, payload)`, `completed(id)` stayed false, no `Completed` event was emitted and no tokens moved. Raw record: [measurements/rejected-1794149576219.json](measurements/rejected-1794149576219.json). An earlier attempt that only swapped back to the starting price still executed profitably, because the fixture already carried a residual spread from the benchmark; it is kept as [attempt-not-rejected-1794149290485.json](measurements/attempt-not-rejected-1794149290485.json).
+
 | Fixture / contract | Network | Address |
 |---|---|---|
 | Reactive | Lasna | [0x7509221859d2984ed941f671b616c6a77d07c95b](https://lasna.reactscan.net/address/0x7509221859d2984ed941f671b616c6a77d07c95b) |
@@ -99,23 +112,25 @@ observes the origin receipt, and all Reactive trials ran before all keeper trial
 | formal | reactive | 136/136 | 436.4 | 4319.4 | 2 / 2 |
 | formal | keeper | 136/136 | 8303.6 | 9185.6 | 8 / 9 |
 
-Formal run complete. Calibration used a receipt-waiting broadcaster and its timing distribution is **not pooled** with the formal run. The formal observer runs concurrently with the offline forge signer. Node never receives the private key. It checks Completed, two Base confirmations, completed(id), and settlement of both Reactive reserve sequences. The viem clients retain their 4000 ms block-number cache/default polling interval, while the observer loop sleeps 500 ms. Source and callback may be discovered in one cached-block poll; near-zero observed intervals are not proof of subsecond protocol latency. Public RPC transport and polling remain part of observed latency; the keeper is this configured 2-second confirmed-origin poller, not the fastest possible keeper. Fixtures continue from settled calibration with alternating direction offset 3. No mainnet or universal protocol-speed conclusion is claimed.
+Formal run complete. Calibration used a receipt-waiting broadcaster and its timing distribution is **not pooled** with the formal run. In the published formal run the observer ran concurrently with an offline forge signer, so Node never received the private key (the current script signs in-process; see below). It checks Completed, two Base confirmations, completed(id), and settlement of both Reactive reserve sequences. The viem clients retain their 4000 ms block-number cache/default polling interval, while the observer loop sleeps 500 ms. Source and callback may be discovered in one cached-block poll; near-zero observed intervals are not proof of subsecond protocol latency. Public RPC transport and polling remain part of observed latency; the keeper is this configured 2-second confirmed-origin poller, not the fastest possible keeper. Fixtures continue from settled calibration with alternating direction offset 3. No mainnet or universal protocol-speed conclusion is claimed.
 
 [Calibration JSON](measurements/27cf3990-b267-476d-ab01-b8b3586a117a.json) · [calibration chart](measurements/27cf3990-b267-476d-ab01-b8b3586a117a.html) · [formal JSON](measurements/8ef50d60-a2a2-40dd-a66e-0408c426059a.json) · [formal chart](measurements/8ef50d60-a2a2-40dd-a66e-0408c426059a.html).
 
-The static HTML reports use real rows only; the formal chart was opened and visually checked in a browser on 2026-11-08. The chart plots the observer interval, not the primary metric below. This workspace measurement uses `../tools/live.py` and `../heartbeat/script/Sign.s.sol` as an external signer; those helpers must accompany a standalone copy or be replaced with an equivalent secure signer.
+The static HTML reports use real rows only; the formal chart was opened and visually checked in a browser on 2026-11-08. The chart plots the observer interval, not the primary metric below. The published run used an offline forge signer outside this repository. `scripts/measure.ts` now signs in-process with viem from a `PRIVATE_KEY` environment variable (Base Sepolia only, refused otherwise), so a clean checkout can rerun the benchmark: `PRIVATE_KEY=0x… npm run measure -- --execute-testnet`. The primary metric uses Base block timestamps, so it does not depend on where signing happens.
 
 ## Build and verification
 
 ```sh
 python tools/bootstrap.py
 forge test -vv
+npm ci && npm test
+# live, testnet only: PRIVATE_KEY=0x… npm run reject-demo -- --execute-testnet
 ```
 
 Windows: `./tools/test.ps1` finds user-local Foundry even when it is absent from PATH.
 The build used existing Foundry 1.8.6 in the user's .foundry/bin (no installation or
 Hardhat fallback needed), Solidity 0.8.30, optimizer and via-IR. Dependencies are pinned
-by commit in `dependencies.lock.json`; application contracts have no sibling imports; the workspace signer dependency is documented above.
+by commit in `dependencies.lock.json`; application contracts have no sibling imports; the benchmark has no dependency outside this repository.
 See [TESTLOG.md](TESTLOG.md) for actual passing logs and a deliberately broken invariant.
 Contracts have been deployed and live-tested. See
 [DEPLOY.md](DEPLOY.md), [SOURCES.md](SOURCES.md) and [VIDEO-SCRIPT.md](VIDEO-SCRIPT.md).
